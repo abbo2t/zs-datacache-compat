@@ -36,15 +36,20 @@
  * If a namespace is provided, the key is stored under that namespace.
  * Identical keys can exist under different namespaces.
  *
- * @param string $key The data's key. Optional: prefix with a [namespace::].
- * @param mixed $value Any PHP object that can be serialized.
- * @param int $ttl Time to live, in seconds.
- *                 The Data Cache keeps an object in the cache as long as the TTL is not expired.
- *                 Once the TTL is expired, the object is removed from the cache.
+ * @param  string $key   The data's key. Optional: prefix with a [namespace::].
+ * @param  mixed  $value Any PHP object that can be serialized.
+ * @param  int    $ttl   Time to live, in seconds.
+ *                       The Data Cache keeps an
+ *                       object in the cache as
+ *                       long as the TTL is not
+ *                       expired. Once the TTL is
+ *                       expired, the object is
+ *                       removed from the cache.
  * @return boolean - TRUE if cache storing done successfully, FALSE otherwise.
  *                   If the given key is already cached, return FALSE.
  */
-function zend_shm_cache_add(string $key, $value, int $ttl = 0) {
+function zend_shm_cache_add(string $key, $value, int $ttl = 0)
+{
     return apcu_add($key, $value, $ttl);
 }
 
@@ -53,11 +58,15 @@ function zend_shm_cache_add(string $key, $value, int $ttl = 0) {
  * If a namespace is provided, the key is stored under that namespace.
  * Identical keys can exist under different namespaces.
  *
- * @param string $key The data's key. Optional: prefix with a [namespace::].
- * @param mixed $value Any PHP object that can be serialized.
- * @param int $ttl Time to live, in seconds.
- *                  The Data Cache keeps an object in the cache as long as the TTL is not expired.
- *                  Once the TTL is expired, the object is removed from the cache.
+ * @param  string $key   The data's key. Optional: prefix with a [namespace::].
+ * @param  mixed  $value Any PHP object that can be serialized.
+ * @param  int    $ttl   Time to live, in seconds.
+ *                       The Data Cache keeps an
+ *                       object in the cache as
+ *                       long as the TTL is not
+ *                       expired. Once the TTL is
+ *                       expired, the object is
+ *                       removed from the cache.
  * @return boolean - FALSE if cache storing fails, TRUE otherwise.
  */
 function zend_shm_cache_store(string $key, $value, int $ttl = 0)
@@ -73,10 +82,12 @@ function zend_shm_cache_store(string $key, $value, int $ttl = 0)
  * In case the requested entry does not exist in the cache, the callback is called to create a new cache entry. The API uses the callback's return value and stores it into the cache
  *
  * Return Value: mixed - FALSE if no data that matches the key is found, else it returns the stored data. If an array of keys is given, then an array, which its keys are the original keys and the values, are the corresponding stored data values
- * @param string|array $key The data key or an array of data keys. Optional for key's name: prefix with a namespace.
- * @param mixed $callback In case the requested entry does not exist in the cache,
- *                        the callback is called to create a new cache entry.
- *                        The API uses the callback's return value and stores it into the cache
+ *
+ * @param  string|array $key      The data key or an array of data keys. Optional for key's name: prefix with a namespace.
+ * @param  mixed        $callback In case the requested entry does not exist in the cache,
+ *                                the callback is called to create a new cache entry. The
+ *                                API uses the callback's return value and stores it into
+ *                                the cache
  * @return mixed - FALSE if no data that matches the key is found, else it returns the stored data.
  *                 If an array of keys is given, then an array, which its keys are the original keys and the values,
  *                 are the corresponding stored data values
@@ -86,7 +97,7 @@ function zend_shm_cache_fetch($key, $callback = null)
     if($callback !== null) {
         error_log("ERROR: zend_shm_cache_fetch does not support callback parameter");
     }
-    return apc_fetch($key);
+    return apcu_fetch($key);
 }
 
 /**
@@ -95,8 +106,9 @@ function zend_shm_cache_fetch($key, $callback = null)
  * If a namespace is not provided, the Data Cache searches for the key in the global namespace.
  *
  * Return Value: boolean - TRUE on success, FALSE on failure.
- * @param mixed $key The data key or an array of data keys. Optional for key's name: prefix with a namespace.
- * @param boolean $clusterDelete When set to true (the default), the entry is deleted across the cluster
+ *
+ * @param  mixed   $key           The data key or an array of data keys. Optional for key's name: prefix with a namespace.
+ * @param  boolean $clusterDelete When set to true (the default), the entry is deleted across the cluster
  * @return boolean - TRUE on success, FALSE on failure.
  */
 function zend_shm_cache_delete($key, bool $clusterDelete = false)
@@ -105,5 +117,5 @@ function zend_shm_cache_delete($key, bool $clusterDelete = false)
         error_log("ERROR: zend_shm_cache_delete does not support clusterDelete parameter");
     }
 
-    return apc_delete($key);
+    return apcu_delete($key);
 }
