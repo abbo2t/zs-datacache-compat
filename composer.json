@@ -1,0 +1,40 @@
+{
+    "name": "zendps/zs-datacache-compat",
+    "description": "Compatibility for Zend Server Data Cache",
+    "keywords": [
+        "zend",
+        "zend server",
+        "data cache",
+        "zs",
+        "shm"
+    ],
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name":     "Slavey Karadzhov",
+            "email":    "skaradzhov@perforce.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2 || ~8.0.0 || ~8.1.0 || ~8.2.0",
+        "ext-apc": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5.33 || ^9.5.11",
+        "laminas/laminas-coding-standard": "~2.1.0"
+    },
+    "autoload": {
+        "files": [
+            "src/autoload.php"
+        ]
+    },
+    "provide": {
+        "ext-datacache": "^2021.1.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
